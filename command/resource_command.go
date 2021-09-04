@@ -3,6 +3,8 @@ package command
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"os/exec"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -69,7 +71,9 @@ func resourceCommandCreate(ctx context.Context, d *schema.ResourceData, m interf
 		})
 	}
 
-	d.SetId(cmd.String())
+	id := sha256.Sum256([]byte(cmd.String()))
+	d.SetId(hex.EncodeToString(id[:]))
+
 	d.Set("stdout", stdout.String())
 	d.Set("stderr", stderr.String())
 
