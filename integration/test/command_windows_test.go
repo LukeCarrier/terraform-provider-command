@@ -1,5 +1,3 @@
-// +build !windows
-
 package test
 
 import (
@@ -10,7 +8,7 @@ import (
 )
 
 func TestCommand(t *testing.T) {
-	terraformOptions := makeTerraformOptions(t, "../fixtures/command_hello")
+	terraformOptions := makeTerraformOptions(t, "../fixtures/command_hello_windows")
 	terraformOptions.Vars = map[string]interface{}{
 		"name": "Alice",
 	}
